@@ -1,0 +1,19 @@
+{
+  "name": "web-doctor",
+  "version": "1.0.0",
+  "description": "Robô que ajuda na comunicação entre paciente, enfermeiras, médicos e responsáveis.",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Beraldi/web-doctor.git"
+  },
+  "author": "Beraldi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Beraldi/web-doctor/issues"
+  },
+  "homepage": "https://github.com/Beraldi/web-doctor#readme"
+}
