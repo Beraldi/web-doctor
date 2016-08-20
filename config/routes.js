@@ -6,7 +6,14 @@ var bunyan = require('bunyan');
 var RotatingFileStream = require('bunyan-rotating-file-stream');
 var strformat = require('strformat');
 var logDirectory = path.resolve(__dirname + '/../log/');
-var arduino = require('../arduino/index');
+//var arduino = require('../arduino/index');
+var serialport = require('serialport'),
+    portName = settings.arduino.portName || process.argv[2],
+    portConfig = {
+        baudRate: settings.arduino.baudRate,
+        // call myPort.on('data') when a newline is received:
+        parser: serialport.parsers.readline('\n')
+    };
 
 var log = bunyan.createLogger({
     name: 'Accounts managment Auth0 API',
@@ -32,8 +39,27 @@ function showError(send, err) {
     return send;
 }
 
-
 var appRouter = function(app, router) {
+
+    var interval = 0;
+
+    var myPort = new serialport(portName, portConfig);
+
+    myPort.on('open', function() {
+        console.log('port open. Data rate: ' + myPort.options.baudRate);
+    });
+
+    myPort.on('data', function(data) {
+        console.log(data);
+    });
+
+    myPort.on('close', function() {
+        console.log('port closed.');
+    });
+
+    myPort.on('error', function(error) {
+        console.log('Serial port error: ' + error);
+    });
 
     router.use(function(req, res, next) {
         console.log("/" + req.method);
@@ -42,16 +68,34 @@ var appRouter = function(app, router) {
     });
 
     router.get("/", function(req, res) {
-        console.log("myPort", myPort);
+        console.log("serialport", serialport);
         res.status(200);
     });
 
-    //delete an user
-    app.delete("/webdoctor/goto/:direction", function(req, res) {
+    app.get("/webdoctor/goto/:direction", function(req, res) {
 
-        var direction = req.params.id.toString();
+        var direction = req.params.direction.toString();
 
-        alert(direction);
+        interval = setInterval(function() {
+            myPort.write(direction);
+            console.log("Enviado commando: " + direction);
+        }, 1000);
+
+        console.log(direction);
+
+        res.sendStatus(200);
+
+    });
+
+    app.get("/webdoctor/stop", function(req, res) {
+
+        clearInterval(interval);
+
+        myPort.write('p');
+
+        console.log("Enviado commando: p");
+
+        res.sendStatus(200);
 
     });
 

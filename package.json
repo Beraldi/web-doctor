@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Beraldi/web-doctor#readme",
   "devDependencies": {
+    "audio-buffer": "^2.4.2",
     "body-parser": "^1.15.2",
     "bunyan": "^1.8.1",
     "bunyan-rotating-file-stream": "^1.6.1",
