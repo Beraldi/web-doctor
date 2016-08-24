@@ -69,7 +69,9 @@ var appRouter = function(app, router) {
         }
 
         console.log("/" + req.method);
+
         log.info("/" + req.method);
+        
         next();
     });
 
