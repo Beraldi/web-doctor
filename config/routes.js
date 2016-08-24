@@ -61,14 +61,20 @@ var appRouter = function(app, router) {
         console.log('Serial port error: ' + error);
     });
 
-    router.use(function(req, res, next) {
+    router.use(function(err, req, res, next) {
+        // Do logging and user-friendly error message display
+        if (err) {
+            console.error(err);
+            res.status(500).send('internal server error');
+        }
+
         console.log("/" + req.method);
         log.info("/" + req.method);
         next();
     });
 
     router.get("/", function(req, res) {
-        res.sendFile(path.join(__dirname+'/ui/index.html'));
+        res.sendFile(path.join(__dirname + '/ui/index.html'));
     });
 
     app.get("/webdoctor/goto/:direction", function(req, res) {
