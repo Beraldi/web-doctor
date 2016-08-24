@@ -12,10 +12,12 @@ module.exports.start = function(done) {
     var app = express();
     var router = express.Router();
 
+    app.use(express.static('ui'));
+
     security(app);
 
     environment(app);
-    
+
     routes(app, router);
 
     var server = app.listen(settings.port, function() {

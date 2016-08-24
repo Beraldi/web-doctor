@@ -68,13 +68,14 @@ var appRouter = function(app, router) {
     });
 
     router.get("/", function(req, res) {
-        console.log("serialport", serialport);
-        res.status(200);
+        res.sendFile(path.join(__dirname+'/ui/index.html'));
     });
 
     app.get("/webdoctor/goto/:direction", function(req, res) {
 
         var direction = req.params.direction.toString();
+
+        clearInterval(interval);
 
         interval = setInterval(function() {
             myPort.write(direction);
