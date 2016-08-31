@@ -4,6 +4,7 @@
   "description": "Robô que ajuda na comunicação entre paciente, enfermeiras, médicos e responsáveis.",
   "main": "server.js",
   "scripts": {
+    "start": "pm2 start server.js",
     "test": "mocha"
   },
   "repository": {
