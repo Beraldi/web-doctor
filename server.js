@@ -22,6 +22,7 @@ module.exports.start = function(done) {
 
     var server = app.listen(settings.port, function() {
         console.log(("Listening on port ..." + server.address().port).green);
+        console.log(("Run on terminal: localtunnel --subdomain webdoctor --port " + settings.port).green);
 
         if (done) {
             return done(null, app, server); // If someone ran: "node server.js" then automatically start the server
