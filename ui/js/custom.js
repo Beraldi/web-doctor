@@ -9,20 +9,20 @@ if (annyang) {
             case 'start':
             case 'up':
             case 'forward':
-                $.get("/webdoctor/goto/u");
+                $.get("/webdoctor/goto/w");
                 break;
 
             case 'down':
             case 'back':
-                $.get("/webdoctor/goto/d");
+                $.get("/webdoctor/goto/s");
                 break;
 
             case 'left':
-                $.get("/webdoctor/goto/l");
+                $.get("/webdoctor/goto/a");
                 break;
 
             case 'right':
-                $.get("/webdoctor/goto/r");
+                $.get("/webdoctor/goto/d");
                 break;
 
             case 'stop':
